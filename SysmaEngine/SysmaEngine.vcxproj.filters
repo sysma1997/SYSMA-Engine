@@ -50,5 +50,8 @@
     <ClInclude Include="Include\2D\Rectangle.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="Include\2D\Collision.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

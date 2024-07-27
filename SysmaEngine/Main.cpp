@@ -1,16 +1,50 @@
 #include <iostream>
-#include <functional>
 #include <vector>
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
 #include <glm/glm.hpp>
 
 #include "Include/Engine.h"
 #include "Include/Shader.h"
 #include "Include/2D/Rectangle.h"
+#include "Include/2D/Collision.h"
 
 using namespace SYSMA;
+
+class Subject {
+private:
+	std::vector<E2D::Collision*> collisions;
+	E2D::Object* object;
+
+public:
+	void attach(E2D::Collision* collision) {
+		collisions.push_back(collision);
+	}
+	void detach(E2D::Collision* collision) {
+		std::vector<E2D::Collision*>::iterator it = std::find(collisions.begin(), collisions.end(), collision);
+		if (it != collisions.end())
+			collisions.erase(it);
+	}
+	void notify() {
+		for (int i = 0; i < collisions.size(); i++) {
+			collisions[i]->onCollision(*object);
+		}
+	}
+
+	void CheckCollision(E2D::Object* object) {
+		this->object = object;
+		notify();
+	}
+};
+
+class Cube : public E2D::Rectangle, public E2D::Collision {
+public:
+	Cube(Subject& subject, Shader* shader) : Rectangle{shader} {
+		subject.attach(this);
+	}
+
+	void onCollision(const Object& object) override {
+		std::cout << "Collision with " << object.name << '\n';
+	}
+};
 
 glm::vec3 addColor() {
 	int r{ rand() % 2 };
@@ -23,38 +57,35 @@ glm::vec3 addColor() {
 }
 
 int main() {
-	srand(time(NULL));
 	Engine* engine{ new Engine{"Test"} };
 
 	Shader* shader{ new Shader{} };
 	shader->link(E2D::Rectangle::VERT, E2D::Rectangle::FRAG);
 
-	std::vector<E2D::Object*> vectors;
-
-	auto addRandValue = [](int limit) {
-		return static_cast<float>(rand() % limit);
-	};
-
-	E2D::Rectangle rectangle{ shader };
+	Subject* subject{ new Subject{} };
+	Cube* cube{ new Cube{*subject, shader} };
+	cube->size = glm::vec2{ 30.0f };
+	cube->position = Engine::GetSizeMiddle() - (cube->size / 2.0f);
 
 	while (engine->isLoop()) {
 		engine->newFrame();
 
-		if (Engine::KeyJustPressed(GLFW_KEY_ESCAPE)) engine->closeLoop();
-		if (Engine::KeyPressed(GLFW_KEY_SPACE)) {
-			rectangle.size = glm::vec2{ 50.0f };
-			rectangle.position = glm::vec2{ addRandValue(Engine::Width), addRandValue(Engine::Height)};
-			rectangle.color = addColor();
+		if (Engine::KeyPressed(GLFW_KEY_LEFT) ||
+			Engine::KeyPressed(GLFW_KEY_RIGHT)) {
+			float move = 160.0f * Engine::DeltaTime;
+			if (Engine::KeyPressed(GLFW_KEY_LEFT))
+				move *= -1;
+			cube->position.x += move;
+		}
+		if (Engine::KeyPressed(GLFW_KEY_UP) ||
+			Engine::KeyPressed(GLFW_KEY_DOWN)) {
+			float move = 160.0f * Engine::DeltaTime;
+			if (Engine::KeyPressed(GLFW_KEY_UP))
+				move *= -1;
+			cube->position.y += move;
+		}
 
-			vectors.push_back(new E2D::Rectangle{rectangle});
-		}
-		if (Engine::KeyJustPressed(GLFW_KEY_P)) {
-			std::cout << "Num cubes: " << vectors.size() << '\n';
-		}
-
-		for (int i{ 0 }; i < vectors.size(); i++) {
-			vectors[i]->draw();
-		}
+		cube->draw();
 
 		engine->renderFrame();
 	}

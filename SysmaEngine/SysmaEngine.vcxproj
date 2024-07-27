@@ -154,6 +154,7 @@
     <ClCompile Include="Src\Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\2D\Collision.h" />
     <ClInclude Include="Include\2D\Rectangle.h" />
     <ClInclude Include="Include\Engine.h" />
     <ClInclude Include="Include\File.h" />
