@@ -4,7 +4,6 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 
-#include "../Engine.h"
 #include "../Shader.h"
 
 namespace SYSMA {
@@ -19,7 +18,7 @@ namespace SYSMA {
 			float rotate;
 			glm::vec3 color;
 
-			Object(std::string name, Shader* shader);
+			Object(Shader* shader);
 			~Object();
 
 			virtual void draw() = 0;

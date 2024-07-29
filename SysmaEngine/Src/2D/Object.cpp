@@ -3,8 +3,7 @@
 using namespace SYSMA;
 using namespace E2D;
 
-Object::Object(std::string name, Shader* shader) : 
-	name{ name }, 
+Object::Object(Shader* shader) :  
 	VAO{ 0 },
 	shader{ shader },
 	position{ 1.0f }, size{ 1.0f },

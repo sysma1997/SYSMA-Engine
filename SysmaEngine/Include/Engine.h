@@ -1,9 +1,15 @@
 #pragma once
 
 #include <iostream>
+#include <string>
+#include <map>
+#include <vector>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
+
+#include "Input.h"
+#include "Shader.h"
 
 namespace SYSMA {
 	class Engine {
@@ -14,6 +20,7 @@ namespace SYSMA {
 		float lastFrame;
 		int lastWidth, lastHeight;
 
+		std::vector<Input*> inputs;
 	public:
 		static int Width, Height;
 		static float FWidth, FHeight;
@@ -33,5 +40,7 @@ namespace SYSMA {
 		void newFrame();
 		void renderFrame();
 		void terminate();
+
+		void addInput(Input* input);
 	};
 }

@@ -46,7 +46,9 @@ Engine::Engine(const char* title, int width, int height) : lastFrame{ 0.0f }, la
 
 	glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
 		if (key > -1 && key < 1025) {
-			if (action == GLFW_PRESS) Keys[key] = true;
+			if (action == GLFW_PRESS) {
+				Keys[key] = true;
+			}
 			if (action == GLFW_RELEASE) {
 				Keys[key] = false;
 				KeyProcessed[key] = false;
@@ -100,6 +102,17 @@ void Engine::newFrame() {
 			FHeight = static_cast<float>(Height);
 		}
 	}
+
+	for (int i{ 0 }; i < inputs.size(); i++) {
+		for (int key{ 0 }; key < 1025; key++) {
+			if (Keys[key])
+				inputs[i]->isInputPress(key);
+			if (Keys[key] && !KeyProcessed[key]) {
+				KeyProcessed[key] = true;
+				inputs[i]->isInputJustPress(key);
+			}
+		}
+	}
 }
 void Engine::renderFrame() {
 	glfwSwapBuffers(window);
@@ -108,4 +121,8 @@ void Engine::renderFrame() {
 void Engine::terminate() {
 	glfwDestroyWindow(window);
 	glfwTerminate();
+}
+
+void Engine::addInput(Input* input) {
+	inputs.push_back(input);
 }

@@ -40,13 +40,13 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -149,16 +149,18 @@
     <ClCompile Include="Src\2D\Object.cpp" />
     <ClCompile Include="Src\2D\Rectangle.cpp" />
     <ClCompile Include="Src\Engine.cpp" />
-    <ClCompile Include="Main.cpp" />
     <ClCompile Include="Src\File.cpp" />
     <ClCompile Include="Src\Shader.cpp" />
+    <ClCompile Include="Src\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Include\2D\Collision.h" />
     <ClInclude Include="Include\2D\Rectangle.h" />
     <ClInclude Include="Include\Engine.h" />
     <ClInclude Include="Include\File.h" />
+    <ClInclude Include="Include\Input.h" />
     <ClInclude Include="Include\Shader.h" />
+    <ClInclude Include="Include\Texture.h" />
+    <ClInclude Include="Include\UI\Label.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

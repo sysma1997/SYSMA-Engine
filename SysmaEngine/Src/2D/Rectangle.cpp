@@ -19,10 +19,7 @@ const std::string Rectangle::FRAG =
 	"    fragColor = vec4(color, 1.0);\n"
 	"}";
 
-Rectangle::Rectangle() : Object{ "Rectangle", new Shader{} } {
-	shader->load("Shaders/Shader.vert", "Shaders/Shader.frag");
-}
-Rectangle::Rectangle(Shader* shader) : Object{ "Rectangle", shader } {}
+Rectangle::Rectangle(Shader* shader) : Object{ shader } {}
 
 void Rectangle::draw() {
 	glm::mat4 projection = glm::ortho(0.0f, Engine::FWidth, Engine::FHeight, 0.0f);
