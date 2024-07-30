@@ -1,7 +1,6 @@
-#include "../../Include/2D/Object.h"
+#include "../Include/Object.h"
 
 using namespace SYSMA;
-using namespace E2D;
 
 Object::Object(Shader* shader) :  
 	VAO{ 0 },

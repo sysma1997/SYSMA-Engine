@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SysmaEngine", "SysmaEngine\SysmaEngine.vcxproj", "{5C1E2F9B-347C-4DE2-B5E0-C90AE077731A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Pong", "Pong\Pong.vcxproj", "{3F6B39C6-C489-4922-8739-4502AC23320C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5C1E2F9B-347C-4DE2-B5E0-C90AE077731A} = {5C1E2F9B-347C-4DE2-B5E0-C90AE077731A}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

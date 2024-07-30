@@ -17,6 +17,8 @@ namespace SYSMA {
 		static bool Keys[1024];
 		static bool KeyProcessed[1024];
 
+		GLFWwindow* window;
+
 		float lastFrame;
 		int lastWidth, lastHeight;
 
@@ -25,8 +27,6 @@ namespace SYSMA {
 		static int Width, Height;
 		static float FWidth, FHeight;
 		static float DeltaTime;
-
-		GLFWwindow* window;
 
 		Engine(const char* title, int width = 800, int height = 600);
 

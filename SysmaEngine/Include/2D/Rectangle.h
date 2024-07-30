@@ -5,18 +5,16 @@
 
 #include "../Engine.h"
 #include "../Shader.h"
-#include "Object.h"
+#include "../Object.h"
 
-namespace SYSMA {
-	namespace E2D {
-		class Rectangle : public Object {
-		public:
-			static const std::string VERT;
-			static const std::string FRAG;
+namespace SYSMA::E2D {
+	class Rectangle : public Object {
+	public:
+		static const std::string VERT;
+		static const std::string FRAG;
 
-			Rectangle(Shader* shader);
+		Rectangle(Shader* shader);
 
-			void draw() override;
-		};
-	}
+		void draw() override;
+	};
 }

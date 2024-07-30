@@ -6,11 +6,13 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+#include "../Engine.h"
 #include "../Shader.h"
+#include "../Object.h"
 
 namespace SYSMA {
 	namespace UI {
-		class Label {
+		class Label : public Object {
 		private:
 			struct Character {
 				GLuint id;
@@ -19,22 +21,27 @@ namespace SYSMA {
 				unsigned int advance;
 			};
 
-			GLuint VAO, VBO;
+			GLuint VBO;
+			std::map<char, Character> characters;
+			std::string text;
 
+			void init();
 			glm::vec2 getSizeText(std::string text, float scale);
 		public:
+			enum Aling { LEFT, CENTER, RIGHT };
+
 			static const std::string VERT;
 			static const std::string FRAG;
 
-			std::map<char, Character> characters;
-			Shader* shader;
+			float scale;
+			Aling align;
 
 			Label(Shader* shader);
 			Label(Shader* shader, std::string path, int fontSize);
 
 			void loadFond(std::string path, int fontSize);
-			void render(std::string text, glm::vec2 position,
-				float scale = 1.0f, glm::vec2 color = glm::vec3{ 1.0f });
+			void setText(std::string text);
+			void draw() override;
 		};
 	}
 }

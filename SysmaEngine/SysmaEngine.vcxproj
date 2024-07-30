@@ -145,22 +145,26 @@
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Include\2D\Object.h" />
-    <ClCompile Include="Src\2D\Object.cpp" />
+    <ClCompile Include="Src\2D\Triangle.cpp" />
+    <ClCompile Include="Src\Object.cpp" />
     <ClCompile Include="Src\2D\Rectangle.cpp" />
     <ClCompile Include="Src\Engine.cpp" />
     <ClCompile Include="Src\File.cpp" />
     <ClCompile Include="Src\Shader.cpp" />
     <ClCompile Include="Src\Texture.cpp" />
+    <ClCompile Include="Src\UI\Label.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\2D\Rectangle.h" />
+    <ClInclude Include="Include\2D\Triangle.h" />
     <ClInclude Include="Include\Engine.h" />
     <ClInclude Include="Include\File.h" />
     <ClInclude Include="Include\Input.h" />
+    <ClInclude Include="Include\Object.h" />
     <ClInclude Include="Include\Shader.h" />
     <ClInclude Include="Include\Texture.h" />
     <ClInclude Include="Include\UI\Label.h" />
+    <ClInclude Include="Libs\stb_image.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
