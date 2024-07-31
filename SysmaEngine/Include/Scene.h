@@ -11,6 +11,7 @@
 
 namespace SYSMA {
 	class Scene {
+	public:
 		std::map<std::string, Shader*> shaders;
 		std::map<std::string, Texture*> textures;
 
@@ -18,10 +19,17 @@ namespace SYSMA {
 		std::vector<Object*> UIs;
 		std::vector<Input*> inputs;
 
-	public:
 		~Scene();
 
 		void addShader(std::string name, Shader* shader);
-		void getShader(std::string name);
+		Shader* getShader(std::string name);
+		void addTexture(std::string name, Texture* texture);
+		Texture* getTexture(std::string name);
+
+		void addObject2D(Object* object2D);
+		void addUI(Object* UI);
+		void addInput(Input* input);
+
+		virtual void load() = 0;
 	};
 }

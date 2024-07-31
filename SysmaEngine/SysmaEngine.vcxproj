@@ -151,6 +151,7 @@
     <ClCompile Include="Src\2D\Rectangle.cpp" />
     <ClCompile Include="Src\Engine.cpp" />
     <ClCompile Include="Src\File.cpp" />
+    <ClCompile Include="Src\Scene.cpp" />
     <ClCompile Include="Src\Shader.cpp" />
     <ClCompile Include="Src\Texture.cpp" />
     <ClCompile Include="Src\UI\Label.cpp" />

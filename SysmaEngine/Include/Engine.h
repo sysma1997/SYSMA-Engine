@@ -8,8 +8,8 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
-#include "Input.h"
 #include "Shader.h"
+#include "Scene.h"
 
 namespace SYSMA {
 	class Engine {
@@ -22,7 +22,7 @@ namespace SYSMA {
 		float lastFrame;
 		int lastWidth, lastHeight;
 
-		std::vector<Input*> inputs;
+		Scene* scene;
 	public:
 		static int Width, Height;
 		static float FWidth, FHeight;
@@ -35,12 +35,13 @@ namespace SYSMA {
 		static glm::vec2 GetSize();
 		static glm::vec2 GetSizeMiddle();
 
-		bool isLoop();
+		void loop();
 		void closeLoop();
-		void newFrame();
-		void renderFrame();
-		void terminate();
+		//bool isLoop();
+		//void newFrame();
+		//void renderFrame();
+		//void terminate();
 
-		void addInput(Input* input);
+		void loadScene(Scene* scene);
 	};
 }

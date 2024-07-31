@@ -76,53 +76,57 @@ glm::vec2 Engine::GetSizeMiddle() {
 	return glm::vec2{ GetSize() / 2.0f };
 }
 
-bool Engine::isLoop() {
-	return !glfwWindowShouldClose(window);
+void Engine::loop() {
+	while (!glfwWindowShouldClose(window)) {
+		float currentFrame{ static_cast<float>(glfwGetTime()) };
+		DeltaTime = currentFrame - lastFrame;
+		lastFrame = currentFrame;
+
+		glfwGetFramebufferSize(window, &Width, &Height);
+		glViewport(0, 0, Width, Height);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		if (Width != lastWidth ||
+			Height != lastHeight) {
+			if (Width != lastWidth) {
+				lastWidth = Width;
+				FWidth = static_cast<float>(Width);
+			}
+			if (Height != lastHeight) {
+				lastHeight = Height;
+				FHeight = static_cast<float>(Height);
+			}
+		}
+
+		if (scene) {
+			for (int i{ 0 }; i < scene->inputs.size(); i++) {
+				for (int key{ 0 }; key < 1025; key++) {
+					scene->inputs[i]->isInputPress(key, Keys[key]);
+					scene->inputs[i]->isInputJustPress(key, KeyProcessed[key]);
+					
+					if (Keys[key] && !KeyProcessed[key]) {
+						KeyProcessed[key] = true;
+					}
+				}
+			}
+
+			for (int i{ 0 }; i < scene->objects2D.size(); i++)
+				scene->objects2D[i]->draw();
+			for (int i{ 0 }; i < scene->UIs.size(); i++)
+				scene->UIs[i]->draw();
+		}
+
+		glfwSwapBuffers(window);
+		glfwPollEvents();
+	}
+
+	glfwDestroyWindow(window);
+	glfwTerminate();
 }
 void Engine::closeLoop() {
 	glfwSetWindowShouldClose(window, true);
 }
-void Engine::newFrame() {
-	float currentFrame{ static_cast<float>(glfwGetTime()) };
-	DeltaTime = currentFrame - lastFrame;
-	lastFrame = currentFrame;
 
-	glfwGetFramebufferSize(window, &Width, &Height);
-	glViewport(0, 0, Width, Height);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	if (Width != lastWidth ||
-		Height != lastHeight) {
-		if (Width != lastWidth) {
-			lastWidth = Width;
-			FWidth = static_cast<float>(Width);
-		}
-		if (Height != lastHeight) {
-			lastHeight = Height;
-			FHeight = static_cast<float>(Height);
-		}
-	}
-
-	for (int i{ 0 }; i < inputs.size(); i++) {
-		for (int key{ 0 }; key < 1025; key++) {
-			if (Keys[key])
-				inputs[i]->isInputPress(key);
-			if (Keys[key] && !KeyProcessed[key]) {
-				KeyProcessed[key] = true;
-				inputs[i]->isInputJustPress(key);
-			}
-		}
-	}
-}
-void Engine::renderFrame() {
-	glfwSwapBuffers(window);
-	glfwPollEvents();
-}
-void Engine::terminate() {
-	glfwDestroyWindow(window);
-	glfwTerminate();
-}
-
-void Engine::addInput(Input* input) {
-	inputs.push_back(input);
+void Engine::loadScene(Scene* scene) {
+	this->scene = scene;
 }
