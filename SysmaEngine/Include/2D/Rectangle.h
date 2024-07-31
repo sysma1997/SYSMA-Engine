@@ -10,9 +10,6 @@
 namespace SYSMA::E2D {
 	class Rectangle : public Object {
 	public:
-		static const std::string VERT;
-		static const std::string FRAG;
-
 		Rectangle(Shader* shader);
 
 		void draw() override;

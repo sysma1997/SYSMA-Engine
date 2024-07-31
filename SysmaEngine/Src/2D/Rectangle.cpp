@@ -1,25 +1,9 @@
 #include "../../Include/2D/Rectangle.h"
 
-using namespace SYSMA;
-using namespace E2D;
-
-const std::string Rectangle::VERT = 
-	"#version 450 core\n"
-	"layout(location = 0) in vec2 vertex;\n"
-	"uniform mat4 projection;\n"
-	"uniform mat4 model;\n"
-	"void main() {\n"
-	"    gl_Position = projection * model * vec4(vertex, 0.0, 1.0);\n"
-	"}";
-const std::string Rectangle::FRAG = 
-	"#version 450 core\n"
-	"out vec4 fragColor;\n"
-	"uniform vec3 color;\n"
-	"void main() {\n"
-	"    fragColor = vec4(color, 1.0);\n"
-	"}";
+using namespace SYSMA::E2D;
 
 Rectangle::Rectangle(Shader* shader) : Object{ shader } {
+	init();
 	glm::mat4 projection = glm::ortho(0.0f, Engine::FWidth, Engine::FHeight, 0.0f);
 	shader->setMat4("projection", projection, true);
 }

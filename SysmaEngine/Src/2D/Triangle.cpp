@@ -3,18 +3,18 @@
 using namespace SYSMA::E2D;
 
 Triangle::Triangle(Shader* shader) : Object{ shader } {
+	init();
+	glm::mat4 projection{ glm::ortho(0.0f, Engine::FWidth, Engine::FHeight, 0.0f) };
+	shader->setMat4("projection", projection, true);
+}
+
+void Triangle::init() {
 	float vertices[]{
 		0.0f, 1.0f,
-		-1.0f, 0.0f,
-		1.0f, 0.0f
-	};
-	float vertices2[]{
-		-0.5f, -0.5f, 0.0f,
-		0.5f, -0.5f, 0.0f,
-		0.0f,  0.5f, 0.0f
+		1.0f, 1.0f,
+		0.5f, 0.0f
 	};
 
-	GLuint VBO;
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
 
@@ -24,12 +24,9 @@ Triangle::Triangle(Shader* shader) : Object{ shader } {
 	glBindVertexArray(VAO);
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, (void*)0);
-	
+
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
-
-	glm::mat4 projection{ glm::ortho(0.0f, Engine::FWidth, Engine::FHeight, 0.0f) };
-	shader->setMat4("projection", projection, true);
 }
 
 void Triangle::draw() {

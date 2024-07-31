@@ -33,7 +33,9 @@ Texture::Texture(std::string path, bool rgba) : width{ 0 }, height{ 0 } {
 	glBindTexture(GL_TEXTURE_2D, 0);
 	stbi_image_free(data);
 }
-Texture::~Texture() {}
+Texture::~Texture() {
+	glDeleteTextures(1, &id);
+}
 
 void Texture::Init() {
 	stbi_set_flip_vertically_on_load(true);

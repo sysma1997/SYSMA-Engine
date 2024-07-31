@@ -8,6 +8,7 @@
 
 namespace SYSMA::E2D {
 	class Triangle : public Object {
+		void init();
 	public:
 		Triangle(Shader* shader);
 

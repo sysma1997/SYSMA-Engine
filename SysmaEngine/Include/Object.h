@@ -9,9 +9,14 @@
 namespace SYSMA {
 	class Object {
 	protected:
-		GLuint VAO;
+		GLuint VAO, VBO;
 		Shader* shader;
+		
+		void init();
 	public:
+		static const std::string VERT;
+		static const std::string FRAG;
+
 		std::string name;
 		glm::vec2 position, size;
 		float rotate;

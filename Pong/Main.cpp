@@ -5,56 +5,21 @@
 #include <Input.h>
 
 #include <Input.h>
+#include <2D/Sprite.h>
 #include <2D/Triangle.h>
 #include <2D/Rectangle.h>
 #include <UI/Label.h>
 
 using namespace SYSMA;
 
-class Test : public E2D::Rectangle, public Input {
-	const float GRAVITY = 300.0f;
-	const float MOVE = 60.0f;
-
-	float velocity{ 0.0f };
-
-	void isInputPress(int key) override {
-		if (key == GLFW_KEY_LEFT)
-			position.x -= MOVE * Engine::DeltaTime;
-		if (key == GLFW_KEY_RIGHT)
-			position.x += MOVE * Engine::DeltaTime;
-		if (key == GLFW_KEY_UP)
-			position.y -= MOVE * Engine::DeltaTime;
-		if (key == GLFW_KEY_DOWN)
-			position.y += MOVE * Engine::DeltaTime;
-		if (key == GLFW_KEY_R)
-			rotate += 30.0f * Engine::DeltaTime;
-	}
-	void isInputJustPress(int key) override {
-		if (key == GLFW_KEY_SPACE)
-			velocity = -150.0f;
-	}
-public:
-	Test(Engine& engine, Shader* shader) : Rectangle{shader} {
-		engine.addInput(this);
-	}
-
-	//void process() override {
-	//	velocity += GRAVITY * Engine::DeltaTime;
-	//	position.y += velocity * Engine::DeltaTime;
-	//}
-};
-
 int main() {
 	Engine* engine{ new Engine{"Pong"} };
 	
 	Shader* shaderRect{ new Shader{} };
-	shaderRect->link(E2D::Rectangle::VERT, E2D::Rectangle::FRAG);
+	shaderRect->link(Object::VERT, Object::FRAG);
 	Shader* shaderLabel{ new Shader{} };
 	shaderLabel->link(UI::Label::VERT, UI::Label::FRAG);
 
-	Test* cube{ new Test{*engine, shaderRect} };
-	cube->size = glm::vec3{ 60.0f };
-	cube->position = Engine::GetSizeMiddle();
 	UI::Label* label{ new UI::Label{shaderLabel, "Assets/Fonts/Robot_font.otf", 30} };
 	label->setText("test");
 	label->position = glm::vec2{ 5.0f, (label->size.y / 2.0f) + 5.0f };
@@ -73,13 +38,31 @@ int main() {
 	triangle->size = glm::vec2{ 60.0f };
 	triangle->position = glm::vec2{ 100.0f };
 
+	Shader* shaderSprite{ new Shader{} };
+	shaderSprite->link(E2D::Sprite::VERT, E2D::Sprite::FRAG);
+	Texture* texture{ new Texture{"Assets/Images/gameover.png", true} };
+	E2D::Sprite* go{ new E2D::Sprite{shaderSprite, texture} };
+	go->size = glm::vec2{ 300.0f, 120.0 };
+	go->position = Engine::GetSizeMiddle();
+
+	float velocity{ 0 };
 	while (engine->isLoop()) {
 		engine->newFrame();
 
-		//cube->process();
-		//
-		//cube->draw();
+		if (Engine::KeyPressed(GLFW_KEY_SPACE)) {
+			velocity += 50.0f;
+			if (velocity > 500.0f)
+				velocity = 500.0f;
+		}
+
+		triangle->position += velocity * Engine::DeltaTime;
+
+		velocity -= 10.0f;
+		if (velocity < 0.0f) velocity = 0.0f;
+
 		triangle->draw();
+		go->draw();
+		
 		label->draw();
 		label2->draw();
 		label3->draw();
