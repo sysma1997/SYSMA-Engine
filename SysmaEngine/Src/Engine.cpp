@@ -102,10 +102,10 @@ void Engine::loop() {
 			for (int i{ 0 }; i < scene->inputs.size(); i++) {
 				for (int key{ 0 }; key < 1025; key++) {
 					scene->inputs[i]->isInputPress(key, Keys[key]);
-					scene->inputs[i]->isInputJustPress(key, KeyProcessed[key]);
-					
+
 					if (Keys[key] && !KeyProcessed[key]) {
 						KeyProcessed[key] = true;
+						scene->inputs[i]->isInputJustPress(key);
 					}
 				}
 			}
@@ -128,5 +128,8 @@ void Engine::closeLoop() {
 }
 
 void Engine::loadScene(Scene* scene) {
+	if (this->scene) delete this->scene;
+
 	this->scene = scene;
+	this->scene->load();
 }

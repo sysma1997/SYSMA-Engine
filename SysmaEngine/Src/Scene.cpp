@@ -3,16 +3,28 @@
 using namespace SYSMA;
 
 Scene::~Scene() {
-	for (auto const& [key, value] : shaders) delete value;
-	for (auto const& [key, value] : textures) delete value;
-	for (auto const& it : objects2D) delete it;
-	for (auto const& it : UIs) delete it;
-
-	shaders.clear();
-	textures.clear();
-	objects2D.clear();
-	UIs.clear();
-	inputs.clear();
+	if (shaders.size() > 0) {
+		std::map<std::string, Shader*>::iterator itS;
+		for (itS = shaders.begin(); itS != shaders.end(); itS++) delete itS->second;
+		shaders.clear();
+	}
+	if (textures.size() > 0) {
+		std::map<std::string, Texture*>::iterator itT;
+		for (itT = textures.begin(); itT != textures.end(); itT++) delete itT->second;
+		textures.clear();
+	}
+	if (objects2D.size() > 0) {
+		for (auto object2D : objects2D) delete object2D;
+		objects2D.clear();
+	}
+	if (UIs.size() > 0) {
+		for (auto UI : UIs) delete UI;
+		UIs.clear();
+	}
+	if (inputs.size() > 0) {
+		for (auto input : inputs) delete input;
+		inputs.clear();
+	}
 }
 
 void Scene::addShader(std::string name, Shader* shader) {
