@@ -42,7 +42,7 @@ class Pong2 : public Scene {
 		sTri->link(Object::VERT, Object::FRAG);
 		addShader("object2D", sTri);
 
-		E2D::Triangle* tri{ new E2D::Triangle{getShader("object2D")} };
+		Pong2Player* p2{ new Pong2Player{engine, *this, getShader("object2D")} };
 	}
 public:
 	Pong2(Engine& engine) : engine{engine} {}
@@ -79,8 +79,8 @@ void Pong::load() {
 int main() {
 	Engine* engine{ new Engine{"Pong"} };
 	
-	engine->loadScene(new Pong{*engine});
+	engine->loadScene(new Pong2{*engine});
 
-	engine->loop();
+	engine->start();
 	return 0;
 }

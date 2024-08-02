@@ -56,6 +56,10 @@ Engine::Engine(const char* title, int width, int height) : lastFrame{ 0.0f }, la
 		}
 	});
 }
+Engine::~Engine() {
+	glfwDestroyWindow(window);
+	glfwTerminate();
+}
 
 bool Engine::KeyPressed(int key) {
 	return Keys[key];
@@ -76,7 +80,7 @@ glm::vec2 Engine::GetSizeMiddle() {
 	return glm::vec2{ GetSize() / 2.0f };
 }
 
-void Engine::loop() {
+void Engine::start() {
 	while (!glfwWindowShouldClose(window)) {
 		float currentFrame{ static_cast<float>(glfwGetTime()) };
 		DeltaTime = currentFrame - lastFrame;
@@ -120,8 +124,7 @@ void Engine::loop() {
 		glfwPollEvents();
 	}
 
-	glfwDestroyWindow(window);
-	glfwTerminate();
+	delete this;
 }
 void Engine::closeLoop() {
 	glfwSetWindowShouldClose(window, true);

@@ -3,6 +3,9 @@
 using namespace SYSMA;
 
 Shader::Shader() : id{ 0 } {}
+Shader::~Shader() {
+	glDeleteProgram(id);
+}
 
 void Shader::load(std::string vertexPath, std::string fragmentPath) {
 	std::string vertex{ File::GetText(vertexPath) };

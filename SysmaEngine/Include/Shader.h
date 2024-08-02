@@ -13,6 +13,7 @@ namespace SYSMA {
 		GLuint id;
 
 		Shader();
+		~Shader();
 
 		void load(std::string vertexPath, std::string fragmentPath);
 		void link(std::string vertex, std::string fragment);

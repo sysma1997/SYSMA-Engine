@@ -3,16 +3,6 @@
 using namespace SYSMA;
 
 Scene::~Scene() {
-	if (shaders.size() > 0) {
-		std::map<std::string, Shader*>::iterator itS;
-		for (itS = shaders.begin(); itS != shaders.end(); itS++) delete itS->second;
-		shaders.clear();
-	}
-	if (textures.size() > 0) {
-		std::map<std::string, Texture*>::iterator itT;
-		for (itT = textures.begin(); itT != textures.end(); itT++) delete itT->second;
-		textures.clear();
-	}
 	if (objects2D.size() > 0) {
 		for (auto object2D : objects2D) delete object2D;
 		objects2D.clear();
@@ -24,6 +14,17 @@ Scene::~Scene() {
 	if (inputs.size() > 0) {
 		for (auto input : inputs) delete input;
 		inputs.clear();
+	}
+
+	if (shaders.size() > 0) {
+		std::map<std::string, Shader*>::iterator itS;
+		for (itS = shaders.begin(); itS != shaders.end(); itS++) delete itS->second;
+		shaders.clear();
+	}
+	if (textures.size() > 0) {
+		std::map<std::string, Texture*>::iterator itT;
+		for (itT = textures.begin(); itT != textures.end(); itT++) delete itT->second;
+		textures.clear();
 	}
 }
 

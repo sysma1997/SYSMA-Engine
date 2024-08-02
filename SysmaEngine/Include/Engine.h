@@ -29,13 +29,14 @@ namespace SYSMA {
 		static float DeltaTime;
 
 		Engine(const char* title, int width = 800, int height = 600);
+		~Engine();
 
 		static bool KeyPressed(int key);
 		static bool KeyJustPressed(int key);
 		static glm::vec2 GetSize();
 		static glm::vec2 GetSizeMiddle();
 
-		void loop();
+		void start();
 		void closeLoop();
 		//bool isLoop();
 		//void newFrame();
