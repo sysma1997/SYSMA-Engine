@@ -2,10 +2,13 @@
 
 using namespace SYSMA;
 
-int Engine::Width{ 800 }, Engine::Height{ 600 };
-float Engine::FWidth{ 800.0f }, Engine::FHeight{ 600.0f };
 bool Engine::Keys[1024];
 bool Engine::KeyProcessed[1024];
+std::map<std::string, Shader*> Engine::Shaders;
+std::map<std::string, Texture*> Engine::Textures;
+
+int Engine::Width{ 800 }, Engine::Height{ 600 };
+float Engine::FWidth{ 800.0f }, Engine::FHeight{ 600.0f };
 float Engine::DeltaTime{ 0.0f };
 
 Engine::Engine(const char* title, int width, int height) : lastFrame{ 0.0f }, lastWidth{ 0 }, lastHeight{ 0 } {
@@ -57,6 +60,17 @@ Engine::Engine(const char* title, int width, int height) : lastFrame{ 0.0f }, la
 	});
 }
 Engine::~Engine() {
+	if (Shaders.size() > 0) {
+		std::map<std::string, Shader*>::iterator itS;
+		for (itS = Shaders.begin(); itS != Shaders.end(); itS++) delete itS->second;
+		Shaders.clear();
+	}
+	if (Textures.size() > 0) {
+		std::map<std::string, Texture*>::iterator itT;
+		for (itT = Textures.begin(); itT != Textures.end(); itT++) delete itT->second;
+		Textures.clear();
+	}
+
 	glfwDestroyWindow(window);
 	glfwTerminate();
 }
@@ -78,6 +92,24 @@ glm::vec2 Engine::GetSize() {
 }
 glm::vec2 Engine::GetSizeMiddle() {
 	return glm::vec2{ GetSize() / 2.0f };
+}
+void Engine::AddShader(std::string name, Shader* shader) {
+	Shaders[name] = shader;
+}
+void Engine::RemoveShader(std::string name) {
+	Shaders.erase(name);
+}
+Shader* Engine::GetShader(std::string name) {
+	return Shaders[name];
+}
+void Engine::AddTexture(std::string name, Texture* texture) {
+	Textures[name] = texture;
+}
+void Engine::RemoveTexture(std::string name) {
+	Textures.erase(name);
+}
+Texture* Engine::GetTexture(std::string name) {
+	return Textures[name];
 }
 
 void Engine::start() {
@@ -102,23 +134,7 @@ void Engine::start() {
 			}
 		}
 
-		if (scene) {
-			for (int i{ 0 }; i < scene->inputs.size(); i++) {
-				for (int key{ 0 }; key < 1025; key++) {
-					scene->inputs[i]->isInputPress(key, Keys[key]);
-
-					if (Keys[key] && !KeyProcessed[key]) {
-						KeyProcessed[key] = true;
-						scene->inputs[i]->isInputJustPress(key);
-					}
-				}
-			}
-
-			for (int i{ 0 }; i < scene->objects2D.size(); i++)
-				scene->objects2D[i]->draw();
-			for (int i{ 0 }; i < scene->UIs.size(); i++)
-				scene->UIs[i]->draw();
-		}
+		if (scene) scene->start();
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();

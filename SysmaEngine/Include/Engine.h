@@ -9,6 +9,7 @@
 #include <glm/glm.hpp>
 
 #include "Shader.h"
+#include "Texture.h"
 #include "Scene.h"
 
 namespace SYSMA {
@@ -16,6 +17,8 @@ namespace SYSMA {
 	private:
 		static bool Keys[1024];
 		static bool KeyProcessed[1024];
+		static std::map<std::string, Shader*> Shaders;
+		static std::map<std::string, Texture*> Textures;
 
 		GLFWwindow* window;
 
@@ -35,13 +38,15 @@ namespace SYSMA {
 		static bool KeyJustPressed(int key);
 		static glm::vec2 GetSize();
 		static glm::vec2 GetSizeMiddle();
+		static void AddShader(std::string name, Shader* shader);
+		static void RemoveShader(std::string name);
+		static Shader* GetShader(std::string name);
+		static void AddTexture(std::string name, Texture* texture);
+		static void RemoveTexture(std::string name);
+		static Texture* GetTexture(std::string name);
 
 		void start();
 		void closeLoop();
-		//bool isLoop();
-		//void newFrame();
-		//void renderFrame();
-		//void terminate();
 
 		void loadScene(Scene* scene);
 	};

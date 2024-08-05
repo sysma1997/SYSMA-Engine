@@ -1,4 +1,5 @@
 #include "../Include/Scene.h"
+#include "../Include/Engine.h"
 
 using namespace SYSMA;
 
@@ -12,33 +13,8 @@ Scene::~Scene() {
 		UIs.clear();
 	}
 	if (inputs.size() > 0) {
-		for (auto input : inputs) delete input;
 		inputs.clear();
 	}
-
-	if (shaders.size() > 0) {
-		std::map<std::string, Shader*>::iterator itS;
-		for (itS = shaders.begin(); itS != shaders.end(); itS++) delete itS->second;
-		shaders.clear();
-	}
-	if (textures.size() > 0) {
-		std::map<std::string, Texture*>::iterator itT;
-		for (itT = textures.begin(); itT != textures.end(); itT++) delete itT->second;
-		textures.clear();
-	}
-}
-
-void Scene::addShader(std::string name, Shader* shader) {
-	shaders[name] = shader;
-}
-Shader* Scene::getShader(std::string name) {
-	return shaders[name];
-}
-void Scene::addTexture(std::string name, Texture* texture) {
-	textures[name] = texture;
-}
-Texture* Scene::getTexture(std::string name) {
-	return textures[name];
 }
 
 void Scene::addObject2D(Object* object2D) {
@@ -49,4 +25,19 @@ void Scene::addUI(Object* UI) {
 }
 void Scene::addInput(Input* input) {
 	inputs.push_back(input);
+}
+
+void Scene::start() {
+	for (int i{ 0 }; i < inputs.size(); i++) {
+		for (int key{ 0 }; key < 1025; key++) {
+			inputs[i]->isInputPress(key, Engine::KeyPressed(key));
+
+			if (Engine::KeyJustPressed(key)) inputs[i]->isInputJustPress(key);
+		}
+	}
+
+	for (int i{ 0 }; i < objects2D.size(); i++)
+		objects2D[i]->draw();
+	for (int i{ 0 }; i < UIs.size(); i++)
+		UIs[i]->draw();
 }

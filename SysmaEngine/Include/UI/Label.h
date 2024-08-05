@@ -28,13 +28,13 @@ namespace SYSMA {
 			void init();
 			glm::vec2 getSizeText(std::string text, float scale);
 		public:
-			enum Aling { LEFT, CENTER, RIGHT };
+			enum Align { LEFT, CENTER, RIGHT };
 
 			static const std::string VERT;
 			static const std::string FRAG;
 
 			float scale;
-			Aling align;
+			Align align;
 
 			Label(Shader* shader);
 			Label(Shader* shader, std::string path, int fontSize);

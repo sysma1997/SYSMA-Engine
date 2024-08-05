@@ -104,7 +104,7 @@ void Label::loadFond(std::string path, int fontSize) {
 			id,
 			glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
 			glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
-			face->glyph->advance.x
+			static_cast<unsigned int>(face->glyph->advance.x)
 		};
 		characters.insert(std::pair<char, Character>(c, character));
 	}
