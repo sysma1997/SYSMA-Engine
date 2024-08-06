@@ -145,6 +145,7 @@
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\2D\Circle.cpp" />
     <ClCompile Include="Src\2D\Sprite.cpp" />
     <ClCompile Include="Src\2D\Triangle.cpp" />
     <ClCompile Include="Src\Object.cpp" />
@@ -157,6 +158,7 @@
     <ClCompile Include="Src\UI\Label.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\2D\Circle.h" />
     <ClInclude Include="Include\2D\Rectangle.h" />
     <ClInclude Include="Include\2D\Sprite.h" />
     <ClInclude Include="Include\2D\Triangle.h" />

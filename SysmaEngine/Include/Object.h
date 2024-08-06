@@ -15,6 +15,7 @@ namespace SYSMA {
 		void init();
 	public:
 		static const std::string VERT;
+		static const std::string VERT3V;
 		static const std::string FRAG;
 
 		std::string name;

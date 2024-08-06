@@ -1,6 +1,7 @@
 #pragma once
 
-#include <Gl/glew.h>
+#include <vector>
+#include <GL/glew.h>
 #include <glm/glm.hpp>
 
 #include "../Engine.h"
@@ -8,10 +9,10 @@
 #include "../Object.h"
 
 namespace SYSMA::E2D {
-	class Triangle : public Object {
+	class Circle : public Object {
 		void init();
 	public:
-		Triangle(Shader* shader);
+		Circle(Shader* shader);
 
 		void draw() override;
 	};
