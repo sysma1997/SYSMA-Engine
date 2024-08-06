@@ -2,7 +2,7 @@
 
 using namespace SYSMA;
 
-Pong::MainMenu::MainMenu(Engine& engine) : engine{engine}, option{0} {}
+Pong::MainMenu::MainMenu(Engine& engine) : engine{ engine } {}
 
 void Pong::MainMenu::load() {
 	addInput(this);
@@ -41,11 +41,11 @@ void Pong::MainMenu::isInputJustPress(int key) {
 		if (option > (options.size() - 1)) option = 0;
 	}
 	if (key == GLFW_KEY_SPACE) {
-		if (option == 0) {}
+		if (option == 0) engine.loadScene(new Pong::Game{});
 		else if (option == 1) engine.closeLoop();
 	}
 
-	for (int i{ 0 }; i < options.size(); i++) 
+	for (int i{ 0 }; i < options.size(); i++)
 		options[i]->color = glm::vec3{ 1.0f };
 	options[option]->color = glm::vec3{ 0.5f };
 }
