@@ -11,25 +11,39 @@ Circle::Circle(Shader* shader) : Object{ shader } {
 void Circle::init() {
 	std::vector<glm::vec3> vertices;
 
+	//float radio{ 1.0f };
+	//int count{ 8 };
+	//float angle{ 360.0f / static_cast<float>(count) };
+	//int triangleCount{ count - 2 };
+	//
+	//std::vector<glm::vec3> temp;
+	//for (int i{ 0 }; i < count; i++) {
+	//	float angleCurrent{ angle * static_cast<float>(i) };
+	//	float x{ radio * cos(glm::radians(angleCurrent)) };
+	//	float y{ radio * sin(glm::radians(angleCurrent)) };
+	//	float z{ 0.0f };
+	//
+	//	temp.push_back(glm::vec3{ x, y, z });
+	//}
+	//
+	//for (int i{ 0 }; i < triangleCount; i++) {
+	//	vertices.push_back(temp[i]);
+	//	vertices.push_back(temp[i + 1]);
+	//	vertices.push_back(temp[i + 2]);
+	//}
+
+	int sides{ 100 };
 	float radio{ 1.0f };
-	int count{ 8 };
-	float angle{ 360.0f / static_cast<float>(count) };
-	int triangleCount{ count - 2 };
+	float PI2{ glm::pi<float>() * 2 };
+	float increment{ PI2 / static_cast<float>(sides) };
 
-	std::vector<glm::vec3> temp;
-	for (int i{ 0 }; i < count; i++) {
-		float angleCurrent{ angle * static_cast<float>(i) };
-		float x{ radio * cos(glm::radians(angleCurrent)) };
-		float y{ radio * sin(glm::radians(angleCurrent)) };
-		float z{ 0.0f };
-
-		temp.push_back(glm::vec3{ x, y, z });
-	}
-
-	for (int i{ 0 }; i < triangleCount; i++) {
-		vertices.push_back(temp[i]);
-		vertices.push_back(temp[i + 1]);
-		vertices.push_back(temp[i + 2]);
+	for (float angle{ 0.0f }; angle <= PI2; angle += increment) {
+		glm::vec3 vertice{
+			radio * cos(angle),
+			radio * sin(angle),
+			0.0f
+		};
+		vertices.push_back(vertice);
 	}
 
 	glGenVertexArrays(1, &VAO);
