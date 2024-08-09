@@ -9,6 +9,8 @@
 
 namespace Pong {
 	class Ball : public SYSMA::E2D::Circle {
+
+		void process() override;
 	public:
 		Ball(SYSMA::Scene& scene);
 	};

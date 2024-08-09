@@ -36,8 +36,12 @@ void Scene::start() {
 		}
 	}
 
-	for (int i{ 0 }; i < objects2D.size(); i++)
+	for (int i{ 0 }; i < objects2D.size(); i++) {
+		objects2D[i]->process();
 		objects2D[i]->draw();
-	for (int i{ 0 }; i < UIs.size(); i++)
+	}
+	for (int i{ 0 }; i < UIs.size(); i++) {
+		UIs[i]->process();
 		UIs[i]->draw();
+	}
 }

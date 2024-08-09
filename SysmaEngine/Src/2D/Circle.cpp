@@ -2,32 +2,27 @@
 
 using namespace SYSMA::E2D;
 
-Circle::Circle(Shader* shader) : Object{ shader } {
+Circle::Circle(Shader* shader, int sides) : Object{ shader }, sides{ sides } {
 	init();
 	glm::mat4 projection{ glm::ortho(0.0f, Engine::FWidth, Engine::FHeight, 0.0f) };
 	shader->setMat4("projection", projection, true);
 }
 
 void Circle::init() {
-	std::vector<glm::vec3> vertices;
-
-	float radio{ 1.0f };
-	int count{ 8 };
-	float angle{ 360.0f / static_cast<float>(count) };
-	int triangleCount{ count - 2 };
-
-	std::vector<glm::vec3> temp;
-	for (int i{ 0 }; i < count; i++) {
-		float angleCurrent{ angle * static_cast<float>(i) };
-		float x{ radio * cos(glm::radians(angleCurrent)) };
-		float y{ radio * sin(glm::radians(angleCurrent)) };
-		float z{ 0.0f };
-
-		temp.push_back(glm::vec3{ x, y, z });
+	float angle{ 360.0f / static_cast<float>(sides) };
+	
+	std::vector<glm::vec2> temp;
+	for (int i{ 0 }; i < sides; i++) {
+		float currentAngle{ angle * static_cast<float>(i) };
+		float radian{ glm::radians(currentAngle) };
+		float x{ glm::cos(radian) };
+		float y{ glm::sin(radian) };
+		
+		temp.push_back(glm::vec2{ x, y });
 	}
 
-	for (int i{ 0 }; i < triangleCount; i++) {
-		vertices.push_back(temp[i]);
+	for (int i{ 0 }; i < (sides - 2); i++) {
+		vertices.push_back(temp[0]);
 		vertices.push_back(temp[i + 1]);
 		vertices.push_back(temp[i + 2]);
 	}
@@ -35,14 +30,15 @@ void Circle::init() {
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
 
-	glBindVertexArray(VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * vertices.size(), &vertices[0], GL_STATIC_DRAW);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, (void*)0);
-	glEnableVertexAttribArray(0);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec2) * vertices.size(), &vertices[0], GL_STATIC_DRAW);
 
-	//glBindBuffer(GL_ARRAY_BUFFER, 0);
-	//glBindVertexArray(0);
+	glBindVertexArray(VAO);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, (void*)0);
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
 }
 
 void Circle::draw() {
@@ -56,5 +52,5 @@ void Circle::draw() {
 	shader->setVec3("color", color);
 
 	glBindVertexArray(VAO);
-	glDrawArrays(GL_TRIANGLES, 0, 6);
+	glDrawArrays(GL_TRIANGLES, 0, vertices.size());
 }
