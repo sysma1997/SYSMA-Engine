@@ -10,7 +10,7 @@
 
 namespace Pong {
 	class Player : public SYSMA::E2D::Rectangle, public SYSMA::Input {
-		const float MOVE = 30.0f;
+		const float MOVE;
 
 		void isInputPress(int key, bool press) override;
 

@@ -5,6 +5,8 @@ using namespace SYSMA;
 Pong::Player::Player(Scene& scene) : E2D::Rectangle{ Engine::GetShader("default") }, MOVE{ 350.0f } {
 	scene.addInput(this);
 
+	name = "player";
+	isCheckCollision = true;
 	size = Engine::GetSize() * glm::vec2{ 0.05f, 0.3f };
 	position = glm::vec2{ 10.0f + (size.x / 2.0f), Engine::GetSizeMiddle().y };
 

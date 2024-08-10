@@ -15,9 +15,9 @@ namespace SYSMA {
 		void init();
 	public:
 		static const std::string VERT;
-		static const std::string VERT3V;
 		static const std::string FRAG;
 
+		bool isCheckCollision;
 		std::string name;
 		glm::vec2 position, size;
 		float rotate;
@@ -27,6 +27,8 @@ namespace SYSMA {
 		~Object();
 
 		virtual void process() {}
+		virtual void isCollision(Object& object) {}
+		
 		virtual void draw() = 0;
 	};
 }

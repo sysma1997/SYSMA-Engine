@@ -10,14 +10,6 @@ const std::string Object::VERT =
 "void main() {\n"
 "    gl_Position = projection * model * vec4(vertex, 0.0, 1.0);\n"
 "}";
-const std::string Object::VERT3V =
-"#version 450 core\n"
-"layout(location = 0) in vec3 vertex;\n"
-"uniform mat4 projection;\n"
-"uniform mat4 model;\n"
-"void main() {\n"
-"    gl_Position = projection * model * vec4(vertex, 1.0);\n"
-"}";
 const std::string Object::FRAG =
 "#version 450 core\n"
 "out vec4 fragColor;\n"
@@ -31,7 +23,8 @@ Object::Object(Shader* shader) :
 	shader{ shader },
 	position{ 1.0f }, size{ 1.0f },
 	rotate{ 0.0f },
-	color{ 1.0f } { }
+	color{ 1.0f }, 
+	isCheckCollision{ false } { }
 Object::~Object() {
 	glDeleteVertexArrays(1, &VAO);
 	glDeleteBuffers(1, &VBO);
