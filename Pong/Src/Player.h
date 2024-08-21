@@ -10,10 +10,9 @@
 
 namespace Pong {
 	class Player : public SYSMA::E2D::Rectangle, public SYSMA::Input {
-		const float MOVE;
+		float velocity;
 
 		void isInputPress(int key, bool press) override;
-
 	public:
 		Player(SYSMA::Scene& scene);
 	};

@@ -6,6 +6,7 @@
 
 #include "Object.h"
 #include "Input.h"
+#include "Signal.h"
 
 namespace SYSMA {
 	class Scene {

@@ -2,7 +2,7 @@
 
 using namespace SYSMA;
 
-Pong::Ball::Ball(Scene& scene) : E2D::Circle{ Engine::GetShader("default"), 14 }, isCollition{ false }, seconds{ 0.0f }, velocity{ 300.0f } {
+Pong::Ball::Ball(Scene& scene, Emit<const glm::vec2&> emit) : E2D::Circle{ Engine::GetShader("default"), 14 }, emit{emit}, isCollition{false}, seconds{0.0f}, velocity{300.0f} {
 	srand(time(NULL));
 	name = "ball";
 	isCheckCollision = true;
@@ -39,6 +39,8 @@ void Pong::Ball::process() {
 		isCollition = true;
 		direction.y *= -1.0f;
 	}
+
+	emit.emit("ballPosition", position);
 }
 void Pong::Ball::isCollision(Object& object) {
 	isCollition = true;

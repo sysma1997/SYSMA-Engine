@@ -1,8 +1,7 @@
 #pragma once
 
 namespace SYSMA {
-	class Input {
-	public:
+	struct Input {
 		virtual void isInputPress(int key, bool isPress) {}
 		virtual void isInputJustPress(int key) {}
 	};
