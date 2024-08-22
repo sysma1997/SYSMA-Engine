@@ -41,7 +41,7 @@ void Pong::MainMenu::isInputJustPress(int key) {
 		if (option > (options.size() - 1)) option = 0;
 	}
 	if (key == GLFW_KEY_SPACE) {
-		if (option == 0) engine.loadScene(new Pong::Game{ engine });
+		if (option == 0) engine.loadScene(new Pong::_Game{ engine });
 		else if (option == 1) engine.closeLoop();
 	}
 

@@ -148,7 +148,6 @@
     <ClCompile Include="Src\2D\Circle.cpp" />
     <ClCompile Include="Src\2D\Sprite.cpp" />
     <ClCompile Include="Src\2D\Triangle.cpp" />
-    <ClCompile Include="Src\Emit.cpp" />
     <ClCompile Include="Src\Object.cpp" />
     <ClCompile Include="Src\2D\Rectangle.cpp" />
     <ClCompile Include="Src\Engine.cpp" />
@@ -163,14 +162,14 @@
     <ClInclude Include="Include\2D\Rectangle.h" />
     <ClInclude Include="Include\2D\Sprite.h" />
     <ClInclude Include="Include\2D\Triangle.h" />
-    <ClInclude Include="Include\Emit.h" />
     <ClInclude Include="Include\Engine.h" />
     <ClInclude Include="Include\File.h" />
     <ClInclude Include="Include\Input.h" />
     <ClInclude Include="Include\Object.h" />
+    <ClInclude Include="Include\Observer.h" />
     <ClInclude Include="Include\Scene.h" />
     <ClInclude Include="Include\Shader.h" />
-    <ClInclude Include="Include\Signal.h" />
+    <ClInclude Include="Include\Subject.h" />
     <ClInclude Include="Include\Texture.h" />
     <ClInclude Include="Include\UI\Label.h" />
     <ClInclude Include="Libs\stb_image.h" />

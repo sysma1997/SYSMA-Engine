@@ -146,18 +146,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Src\Ball.cpp" />
+    <ClCompile Include="Src\Game\Ball.cpp" />
     <ClCompile Include="Src\Game.cpp" />
     <ClCompile Include="Src\MainMenu.cpp" />
-    <ClCompile Include="Src\Opponent.cpp" />
-    <ClCompile Include="Src\Player.cpp" />
+    <ClCompile Include="Src\Game\Opponent.cpp" />
+    <ClCompile Include="Src\Game\Player.cpp" />
+    <ClCompile Include="Src\Shared\SubjectBallPosition.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Src\Ball.h" />
+    <ClInclude Include="Src\Game\Ball.h" />
     <ClInclude Include="Src\Game.h" />
     <ClInclude Include="Src\MainMenu.h" />
-    <ClInclude Include="Src\Opponent.h" />
-    <ClInclude Include="Src\Player.h" />
+    <ClInclude Include="Src\Game\Opponent.h" />
+    <ClInclude Include="Src\Game\Player.h" />
+    <ClInclude Include="Src\Shared\SubjectBallPosition.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

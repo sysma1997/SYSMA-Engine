@@ -1,8 +1,9 @@
 #include <iostream>
 
 #include <Engine.h>
+#include <UI/Label.h>
 
-#include "Src/MainMenu.h"
+#include "Src/Game.h"
 
 using namespace SYSMA;
 
@@ -12,13 +13,13 @@ int main() {
 	Shader* shaderDefault{ new Shader{} };
 	shaderDefault->link(Object::VERT, Object::FRAG);
 	Engine::AddShader("default", shaderDefault);
-
+	
 	Shader* shaderUILabel{ new Shader{} };
 	shaderUILabel->link(UI::Label::VERT, UI::Label::FRAG);
 	Engine::AddShader("label", shaderUILabel);
-
-	engine->loadScene(new Pong::Game{ *engine });
-
+	
+	engine->loadScene(new Pong::_Game{ *engine });
 	engine->start();
+
 	return 0;
 }

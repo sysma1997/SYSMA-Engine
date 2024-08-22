@@ -8,7 +8,7 @@
 
 #include <2D/Rectangle.h>
 
-namespace Pong {
+namespace Pong::Game {
 	class Player : public SYSMA::E2D::Rectangle, public SYSMA::Input {
 		float velocity;
 
