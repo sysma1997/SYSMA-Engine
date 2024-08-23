@@ -45,10 +45,12 @@ void Scene::start() {
 				if (!object2.isCheckCollision) continue;
 				if (object.name == object2.name) continue;
 
-				glm::vec2 object1StartCollision{ object.position - (object.size / 2.0f) };
-				glm::vec2 object1EndCollision{ object.position + (object.size / 2.0f) };
-				glm::vec2 object2StartCollision{ object2.position - (object2.size / 2.0f) };
-				glm::vec2 object2EndCollision{ object2.position + (object2.size / 2.0f) };
+				glm::vec2 object1SizeM{ object.size / 2.0f };
+				glm::vec2 object2SizeM{ object2.size / 2.0f };
+				glm::vec2 object1StartCollision{ object.position - object1SizeM };
+				glm::vec2 object1EndCollision{ object.position + object1SizeM };
+				glm::vec2 object2StartCollision{ object2.position - object2SizeM };
+				glm::vec2 object2EndCollision{ object2.position + object2SizeM };
 
 				glm::vec2 differenceStart{ object1StartCollision - object2StartCollision };
 				glm::vec2 differenceEnd{ object1EndCollision - object2EndCollision };

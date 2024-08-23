@@ -29,11 +29,6 @@ void Pong::Game::Ball::process() {
 	position += direction * velocity * Engine::DeltaTime;
 	
 	if (!isCollition && 
-		position.x > Engine::GetSize().x - (size.x / 2.0f)) {
-		isCollition = true;
-		direction.x *= -1.0f;
-	}
-	if (!isCollition && 
 		(position.y < size.y || 
 		position.y > Engine::GetSize().y - (size.y / 2.0f))) {
 		isCollition = true;

@@ -5,6 +5,7 @@
 #include <Observer.h>
 
 #include <2D/Rectangle.h>
+#include <UI/Label.h>
 
 #include "Game/Player.h"
 #include "Game/Ball.h"
@@ -17,7 +18,10 @@ namespace Pong {
 		Shared::SubjectBallPosition subjectBallPosition;
 		Shared::SubjectAssignPoint subjectAssignPoint;
 		SYSMA::Engine& engine;
-		int pointsPlayer, pointsEnemy;
+		int pointsPlayer, pointsOpponent;
+
+		//SYSMA::UI::Label* lPPlayer;
+		//SYSMA::UI::Label* lPOpponent;
 
 		void load() override;
 
