@@ -39,7 +39,7 @@ void Pong::Game::Ball::process() {
 		float direction{ (position.x < 0.0f) ? 1.0f : -1.0f };
 		reset(direction);
 		Pong::Shared::SubjectAssignPoint::Assign assign{
-			(position.x < 0.0f) ?
+			(direction == -1.0f) ?
 				Pong::Shared::SubjectAssignPoint::OPPONENT :
 				Pong::Shared::SubjectAssignPoint::PLAYER
 		};

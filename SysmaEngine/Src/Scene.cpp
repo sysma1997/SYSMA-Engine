@@ -67,7 +67,13 @@ void Scene::start() {
 		object.draw();
 	}
 	for (int i{ 0 }; i < UIs.size(); i++) {
-		UIs[i]->process();
+		if (!pause) UIs[i]->process();
 		UIs[i]->draw();
 	}
+}
+void Scene::isPause(bool pause) {
+	this->pause = pause;
+}
+bool Scene::isPause() {
+	return pause;
 }

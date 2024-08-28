@@ -148,6 +148,7 @@
     <ClCompile Include="Src\2D\Circle.cpp" />
     <ClCompile Include="Src\2D\Sprite.cpp" />
     <ClCompile Include="Src\2D\Triangle.cpp" />
+    <ClCompile Include="Src\Input.cpp" />
     <ClCompile Include="Src\Object.cpp" />
     <ClCompile Include="Src\2D\Rectangle.cpp" />
     <ClCompile Include="Src\Engine.cpp" />

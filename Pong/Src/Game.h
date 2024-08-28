@@ -20,8 +20,8 @@ namespace Pong {
 		SYSMA::Engine& engine;
 		int pointsPlayer, pointsOpponent;
 
-		//SYSMA::UI::Label* lPPlayer;
-		//SYSMA::UI::Label* lPOpponent;
+		SYSMA::UI::Label* lPPlayer;
+		SYSMA::UI::Label* lPOpponent;
 
 		void load() override;
 

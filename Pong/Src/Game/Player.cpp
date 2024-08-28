@@ -2,7 +2,7 @@
 
 using namespace SYSMA;
 
-Pong::Game::Player::Player(Scene& scene) : E2D::Rectangle{ Engine::GetShader("default") }, velocity{ 350.0f } {
+Pong::Game::Player::Player(Scene& scene) : E2D::Rectangle{ Engine::GetShader("default") }, scene{ scene }, velocity{ 350.0f }, pause{ false } {
 	scene.addInput(this);
 
 	name = "player";
@@ -22,4 +22,10 @@ void Pong::Game::Player::isInputPress(int key, bool isPress) {
 		position.y += velocity * Engine::DeltaTime;
 
 	position.y = glm::clamp(position.y, size.y / 2.0f, Engine::FHeight - (size.y / 2.0f));
+}
+void Pong::Game::Player::isInputJustPress(int key) {
+	if (key == GLFW_KEY_ESCAPE) {
+		pause = !pause;
+		scene.isPause(pause);
+	}
 }

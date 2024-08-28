@@ -35,9 +35,9 @@ Label::Label(Shader* shader, std::string path, int fontSize) : Object{ shader },
 }
 
 void Label::init() {
-	glEnable(GL_CULL_FACE);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	//glEnable(GL_CULL_FACE);
+	//glEnable(GL_BLEND);
+	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	shader->setMat4("projection", glm::ortho(0.0f, Engine::FWidth, Engine::FHeight, 0.0f), true);
 	shader->setInt("text", 0);
