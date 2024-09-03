@@ -3,7 +3,7 @@
 using namespace SYSMA;
 
 Pong::_Game::_Game(Engine& engine) : engine{ engine },
-subjectBallPosition{}, subjectAssignPoint{},
+subjectBallPosition{}, subjectAssignPoint{}, subjectResetGame{}, 
 pointsPlayer{ 0 }, pointsOpponent{ 0 }, 
 lPPlayer{new UI::Label{Engine::GetShader("label")}},
 lPOpponent{ new UI::Label{Engine::GetShader("label")} } {}
@@ -15,9 +15,10 @@ void Pong::_Game::load() {
 
 	addObject2D(rectangle);
 
-	new Pong::Game::Player{ *this };
-	new Pong::Game::Opponent{ *this, subjectBallPosition };
-	new Pong::Game::Ball{ *this, subjectBallPosition, subjectAssignPoint };
+	subjectResetGame.attach(this);
+	subjectResetGame.attach(new Pong::Game::Player{ *this });
+	subjectResetGame.attach(new Pong::Game::Opponent{ *this, subjectBallPosition });
+	subjectResetGame.attach(new Pong::Game::Ball{ *this, subjectBallPosition, subjectAssignPoint });
 
 	std::string font{"Assets/Fonts/Robot_Font.otf"};
 	
@@ -46,7 +47,13 @@ void Pong::_Game::update(Pong::Shared::SubjectAssignPoint* subject) {
 	lPPlayer->setText(std::to_string(pointsPlayer));
 	lPOpponent->setText(std::to_string(pointsOpponent));
 
-	if (pointsPlayer > 9 || pointsOpponent > 9) {
-		//
-	}
+	const int maxPoints{ 0 };
+	if (pointsPlayer > maxPoints || pointsOpponent > maxPoints) 
+		new Pong::Game::ShowWinner{ engine, *this, pointsPlayer > maxPoints, subjectResetGame };
+}
+void Pong::_Game::update(Pong::Shared::SubjectResetGame* subject) {
+	pointsPlayer = 0;
+	pointsOpponent = 0;
+	lPPlayer->setText("0");
+	lPOpponent->setText("0");
 }

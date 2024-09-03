@@ -20,7 +20,8 @@ const std::string Object::FRAG =
 
 Object::Object(Shader* shader) :  
 	VAO{ 0 }, VBO{ 0 }, 
-	shader{ shader },
+	shader{ shader }, 
+	velocity{ 0.0f },
 	position{ 1.0f }, size{ 1.0f },
 	rotate{ 0.0f },
 	color{ 1.0f }, 

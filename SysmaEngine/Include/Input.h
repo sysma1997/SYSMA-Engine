@@ -7,7 +7,10 @@ namespace SYSMA {
 		virtual void isInputPress(int key, bool isPress) {}
 		virtual void isInputJustPress(int key) {}
 
+		void isPauseInput(bool pauseInput);
+		bool isPauseInput();
+
 	protected:
-		bool pause;
+		bool pauseInput;
 	};
 }

@@ -6,7 +6,7 @@ Pong::Game::Ball::Ball(Scene& scene,
 	Pong::Shared::SubjectBallPosition& subjectBallPosition, 
 	Pong::Shared::SubjectAssignPoint& subjectAssignPoint) : E2D::Circle{ Engine::GetShader("default"), 14 }, 
 	subjectBallPosition{ subjectBallPosition }, subjectAssignPoint{ subjectAssignPoint }, 
-	isCollition{ false }, seconds{ 0.0f }, velocity{ 300.0f } {
+	unapplyCollision{ false }, seconds{ 0.0f }, speed{ 300.0f } {
 	srand(time(NULL));
 	name = "ball";
 	isCheckCollision = true;
@@ -18,28 +18,25 @@ Pong::Game::Ball::Ball(Scene& scene,
 }
 
 void Pong::Game::Ball::process() {
-	if (isCollition) {
+	if (unapplyCollision) {
 		seconds += Engine::DeltaTime;
 		if (seconds > 0.2f) {
-			isCollition = false;
+			unapplyCollision = false;
 			seconds = 0.0f;
 		}
 	}
 
-	position += direction * velocity * Engine::DeltaTime;
+	position += direction * speed * Engine::DeltaTime;
 	
-	if (!isCollition && 
-		(position.y < size.y || 
-		position.y > Engine::GetSize().y - (size.y / 2.0f))) {
-		isCollition = true;
+	if (position.y < size.y || 
+		position.y > Engine::GetSize().y - (size.y / 2.0f))
 		direction.y *= -1.0f;
-	}
 
 	if (position.x < 0.0f || position.x > Engine::FWidth) {
 		float direction{ (position.x < 0.0f) ? 1.0f : -1.0f };
 		reset(direction);
 		Pong::Shared::SubjectAssignPoint::Assign assign{
-			(direction == -1.0f) ?
+			(direction == 1.0f) ?
 				Pong::Shared::SubjectAssignPoint::OPPONENT :
 				Pong::Shared::SubjectAssignPoint::PLAYER
 		};
@@ -49,8 +46,11 @@ void Pong::Game::Ball::process() {
 	subjectBallPosition.change(position);
 }
 void Pong::Game::Ball::isCollision(Object& object) {
-	isCollition = true;
+	if (unapplyCollision) return;
+
+	unapplyCollision = true;
 	direction.x *= -1.0f;
+	speed += 15.0f;
 }
 void Pong::Game::Ball::reset(float direction) {
 	assignDirection(direction);
@@ -62,4 +62,8 @@ void Pong::Game::Ball::assignDirection(float leftRight) {
 		((rand() % 2) == 0) ? -1.0f : 1.0f
 	};
 	if (leftRight != 0.0f) direction.x = leftRight;
+}
+
+void Pong::Game::Ball::update(Pong::Shared::SubjectResetGame* subject) {
+	reset(0.0f);
 }

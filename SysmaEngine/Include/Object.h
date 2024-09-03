@@ -11,6 +11,8 @@ namespace SYSMA {
 	protected:
 		GLuint VAO, VBO;
 		Shader* shader;
+
+		glm::vec2 velocity;
 		
 		void init();
 	public:

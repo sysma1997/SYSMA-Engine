@@ -2,4 +2,11 @@
 
 using namespace SYSMA;
 
-Input::Input() : pause{ false } {}
+Input::Input() : pauseInput{ false } {}
+
+void Input::isPauseInput(bool pauseInput) {
+	this->pauseInput = pauseInput;
+}
+bool Input::isPauseInput() {
+	return pauseInput;
+}
