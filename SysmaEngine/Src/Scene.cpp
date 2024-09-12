@@ -3,7 +3,10 @@
 
 using namespace SYSMA;
 
+Scene::Scene() : removePosObject2D{ -1 }, removePosUI{ -1 }, removePosInput{ -1 }, removeAll{ false } {}
 Scene::~Scene() {
+	removeAll = true;
+
 	if (objects2D.size() > 0) {
 		for (auto object2D : objects2D) delete object2D;
 		objects2D.clear();
@@ -22,33 +25,50 @@ void Scene::addObject2D(Object* object2D) {
 }
 void Scene::removeObject2D(Object* object2D) {
 	auto it{ std::find(objects2D.begin(), objects2D.end(), object2D) };
-	if (it != objects2D.end()) objects2D.erase(it);
+	if (it != objects2D.end()) 
+		removePosObject2D = std::distance(objects2D.begin(), it);
 }
 void Scene::addUI(Object* UI) {
 	UIs.push_back(UI);
 }
 void Scene::removeUI(Object* UI) {
 	auto it{ std::find(UIs.begin(), UIs.end(), UI) };
-	if (it != UIs.end()) UIs.erase(it);
+	if (it != UIs.end())
+		removePosUI = std::distance(UIs.begin(), it);
 }
 void Scene::addInput(Input* input) {
 	inputs.push_back(input);
 }
 void Scene::removeInput(Input* input) {
 	auto it{ std::find(inputs.begin(), inputs.end(), input) };
-	if (it != inputs.end()) inputs.erase(it);
+	if (it != inputs.end())
+		removePosInput = std::distance(inputs.begin(), it);
 }
 
 void Scene::start() {
+	if (removeAll) return;
+
+	if (removePosInput != -1) {
+		auto it{ std::find(inputs.begin(), inputs.end(), inputs[removePosInput]) };
+		if (it != inputs.end()) inputs.erase(it);
+		
+		removePosInput = -1;
+	}
 	for (int i{ 0 }; i < inputs.size(); i++) {
-		if (i >= inputs.size()) break;
 		for (int key{ 0 }; key < 1025; key++) {
 			if (inputs[i]->isPauseInput()) continue;
+			
 			inputs[i]->isInputPress(key, Engine::KeyPressed(key));
 			if (Engine::KeyJustPressed(key)) inputs[i]->isInputJustPress(key);
 		}
 	}
 
+	if (removePosObject2D != -1) {
+		auto it{ std::find(objects2D.begin(), objects2D.end(), objects2D[removePosObject2D]) };
+		if (it != objects2D.end()) objects2D.erase(it);
+
+		removePosObject2D = -1;
+	}
 	for (int i{ 0 }; i < objects2D.size(); i++) {
 		Object& object{ *objects2D[i] };
 
@@ -81,6 +101,13 @@ void Scene::start() {
 		}
 
 		object.draw();
+	}
+
+	if (removePosUI != -1) {
+		auto it{ std::find(UIs.begin(), UIs.end(), UIs[removePosUI]) };
+		if (it != UIs.end()) UIs.erase(it);
+
+		removePosUI = -1;
 	}
 	for (int i{ 0 }; i < UIs.size(); i++) {
 		if (!pause) UIs[i]->process();

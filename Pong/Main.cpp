@@ -3,6 +3,7 @@
 #include <Engine.h>
 #include <UI/Label.h>
 
+#include "Src/MainMenu.h"
 #include "Src/Game.h"
 
 using namespace SYSMA;

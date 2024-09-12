@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <exception>
 
 #include "Object.h"
 #include "Input.h"
@@ -15,8 +16,14 @@ namespace SYSMA {
 		std::vector<Object*> UIs;
 		std::vector<Input*> inputs;
 
+		int removePosObject2D;
+		int removePosUI;
+		int removePosInput;
+		bool removeAll;
+
 		bool pause;
 	public:
+		Scene();
 		~Scene();
 
 		void addObject2D(Object* object2D);

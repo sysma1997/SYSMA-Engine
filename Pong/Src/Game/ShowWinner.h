@@ -7,6 +7,7 @@
 
 #include <UI/Label.h>
 
+#include "../MainMenu.h"
 #include "../Shared/SubjectResetGame.h"
 
 namespace Pong::Game {

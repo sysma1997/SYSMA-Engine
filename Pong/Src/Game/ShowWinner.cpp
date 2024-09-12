@@ -30,6 +30,6 @@ void Pong::Game::ShowWinner::isInputJustPress(int key) {
 		subject.reset();
 		delete this;
 	}
-	if (key == GLFW_KEY_ESCAPE) 
-		engine.closeLoop();
+	if (key == GLFW_KEY_ESCAPE)
+		engine.loadScene(new MainMenu{ engine });
 }
