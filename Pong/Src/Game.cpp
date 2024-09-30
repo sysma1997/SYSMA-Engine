@@ -3,7 +3,7 @@
 using namespace SYSMA;
 
 Pong::_Game::_Game(Engine& engine) : engine{ engine },
-subjectBallPosition{}, subjectAssignPoint{}, subjectResetGame{}, 
+subjectGame{},
 pointsPlayer{ 0 }, pointsOpponent{ 0 }, 
 lPPlayer{new UI::Label{Engine::GetShader("label")}},
 lPOpponent{ new UI::Label{Engine::GetShader("label")} } {}
@@ -15,12 +15,12 @@ void Pong::_Game::load() {
 
 	addObject2D(rectangle);
 
-	subjectResetGame.attach(this);
-	subjectResetGame.attach(new Pong::Game::Player{ *this });
-	subjectResetGame.attach(new Pong::Game::Opponent{ *this, subjectBallPosition });
-	subjectResetGame.attach(new Pong::Game::Ball{ *this, subjectBallPosition, subjectAssignPoint });
+	subjectGame.attach(this);
+	subjectGame.attach(new Pong::Game::Player{ *this });
+	subjectGame.attach(new Pong::Game::Opponent{ *this, subjectGame });
+	subjectGame.attach(new Pong::Game::Ball{ *this, subjectGame });
 
-	std::string font{"Assets/Fonts/Robot_Font.otf"};
+	std::string font{ "Assets/Fonts/Robot_Font.otf" };
 	
 	lPPlayer->loadFond(font, 40);
 	lPPlayer->name = "scorePlayer";
@@ -36,24 +36,28 @@ void Pong::_Game::load() {
 	lPOpponent->setText("0");
 	lPOpponent->position = posLabels + glm::vec2{ 10.0f, 0.0f };
 	addUI(lPOpponent);
-
-	subjectAssignPoint.attach(this);
 }
-void Pong::_Game::update(Pong::Shared::SubjectAssignPoint* subject) {
-	if (subject->get() == Pong::Shared::SubjectAssignPoint::PLAYER)
-		pointsPlayer++;
-	else pointsOpponent++;
+void Pong::_Game::update(Pong::Shared::SubjectGame* subject) {
+	auto method = subject->getMethod();
 
-	lPPlayer->setText(std::to_string(pointsPlayer));
-	lPOpponent->setText(std::to_string(pointsOpponent));
+	switch (method) {
+	case Pong::Shared::SubjectGame::Method::ASSIGN_POINT: {
+		if (subject->getAssign() == Pong::Shared::SubjectGame::Assign::PLAYER)
+			pointsPlayer++;
+		else pointsOpponent++;
 
-	const int maxPoints{ 0 };
-	if (pointsPlayer > maxPoints || pointsOpponent > maxPoints) 
-		new Pong::Game::ShowWinner{ engine, *this, pointsPlayer > maxPoints, subjectResetGame };
-}
-void Pong::_Game::update(Pong::Shared::SubjectResetGame* subject) {
-	pointsPlayer = 0;
-	pointsOpponent = 0;
-	lPPlayer->setText("0");
-	lPOpponent->setText("0");
+		lPPlayer->setText(std::to_string(pointsPlayer));
+		lPOpponent->setText(std::to_string(pointsOpponent));
+
+		const int maxPoints{ 0 };
+		if (pointsPlayer > maxPoints || pointsOpponent > maxPoints)
+			new Pong::Game::ShowWinner{ engine, *this, pointsPlayer > maxPoints, subjectGame };
+	} break;
+	case Pong::Shared::SubjectGame::Method::RESET_GAME:
+		pointsPlayer = 0;
+		pointsOpponent = 0;
+		lPPlayer->setText("0");
+		lPOpponent->setText("0");
+		break;
+	}
 }

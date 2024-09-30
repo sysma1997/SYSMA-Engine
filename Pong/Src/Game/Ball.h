@@ -11,14 +11,11 @@
 
 #include <2D/Circle.h>
 
-#include "../Shared/SubjectBallPosition.h"
-#include "../Shared/SubjectAssignPoint.h"
-#include "../Shared/SubjectResetGame.h"
+#include "../Shared/SubjectGame.h"
 
 namespace Pong::Game {
-	class Ball : public SYSMA::E2D::Circle, public SYSMA::Observer<Shared::SubjectResetGame> {
-		Shared::SubjectBallPosition& subjectBallPosition;
-		Shared::SubjectAssignPoint& subjectAssignPoint;
+	class Ball : public SYSMA::E2D::Circle, public SYSMA::Observer<Shared::SubjectGame> {
+		Shared::SubjectGame& subject;
 		bool unapplyCollision;
 		float seconds;
 		float speed;
@@ -30,10 +27,9 @@ namespace Pong::Game {
 		void assignDirection(float leftRight = 0.0f);
 		void reset(float direction);
 
-		void update(Shared::SubjectResetGame* subject);
+		void update(Shared::SubjectGame* subject);
 	public:
 		Ball(SYSMA::Scene& scene, 
-			Shared::SubjectBallPosition& subjectBallPosition, 
-			Shared::SubjectAssignPoint& subjectAssignPoint);
+			Shared::SubjectGame& subject);
 	};
 }

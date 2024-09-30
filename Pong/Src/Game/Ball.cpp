@@ -3,9 +3,8 @@
 using namespace SYSMA;
 
 Pong::Game::Ball::Ball(Scene& scene, 
-	Pong::Shared::SubjectBallPosition& subjectBallPosition, 
-	Pong::Shared::SubjectAssignPoint& subjectAssignPoint) : E2D::Circle{ Engine::GetShader("default"), 14 }, 
-	subjectBallPosition{ subjectBallPosition }, subjectAssignPoint{ subjectAssignPoint }, 
+	Pong::Shared::SubjectGame& subject) : E2D::Circle{ Engine::GetShader("default"), 14 }, 
+	subject{ subject }, 
 	unapplyCollision{ false }, seconds{ 0.0f }, speed{ 300.0f } {
 	srand(time(NULL));
 	name = "ball";
@@ -35,15 +34,15 @@ void Pong::Game::Ball::process() {
 	if (position.x < 0.0f || position.x > Engine::FWidth) {
 		float direction{ (position.x < 0.0f) ? 1.0f : -1.0f };
 		reset(direction);
-		Pong::Shared::SubjectAssignPoint::Assign assign{
+		Pong::Shared::SubjectGame::Assign assign{
 			(direction == 1.0f) ?
-				Pong::Shared::SubjectAssignPoint::OPPONENT :
-				Pong::Shared::SubjectAssignPoint::PLAYER
+				Pong::Shared::SubjectGame::OPPONENT :
+				Pong::Shared::SubjectGame::PLAYER
 		};
-		subjectAssignPoint.addPoint(assign);
+		subject.setAssign(assign);
 	}
 
-	subjectBallPosition.change(position);
+	subject.setPosition(position);
 }
 void Pong::Game::Ball::isCollision(Object& object) {
 	if (unapplyCollision) return;
@@ -64,6 +63,9 @@ void Pong::Game::Ball::assignDirection(float leftRight) {
 	if (leftRight != 0.0f) direction.x = leftRight;
 }
 
-void Pong::Game::Ball::update(Pong::Shared::SubjectResetGame* subject) {
+void Pong::Game::Ball::update(Pong::Shared::SubjectGame* subject) {
+	auto method = subject->getMethod();
+	if (method != Pong::Shared::SubjectGame::Method::RESET_GAME) return;
+
 	reset(0.0f);
 }

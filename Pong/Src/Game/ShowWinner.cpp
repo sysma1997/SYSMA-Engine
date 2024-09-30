@@ -2,7 +2,7 @@
 
 using namespace SYSMA;
 
-Pong::Game::ShowWinner::ShowWinner(Engine& engine, Scene& scene, bool isPlayerWin, Pong::Shared::SubjectResetGame& subject) : 
+Pong::Game::ShowWinner::ShowWinner(Engine& engine, Scene& scene, bool isPlayerWin, Pong::Shared::SubjectGame& subject) : 
 	UI::Label{ Engine::GetShader("label"), "Assets/Fonts/Robot_Font.otf", 60 }, 
 	engine{ engine }, scene{ scene }, 
 	isPlayerWin{ isPlayerWin }, 

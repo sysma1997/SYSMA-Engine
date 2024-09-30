@@ -11,17 +11,12 @@
 #include "Game/Ball.h"
 #include "Game/Opponent.h"
 #include "Game/ShowWinner.h"
-#include "Shared/SubjectBallPosition.h"
-#include "Shared/SubjectAssignPoint.h"
-#include "Shared/SubjectResetGame.h"
+#include "Shared/SubjectGame.h"
 
 namespace Pong {
 	class _Game : public SYSMA::Scene, 
-		public SYSMA::Observer<Shared::SubjectAssignPoint>, 
-		public SYSMA::Observer<Shared::SubjectResetGame> {
-		Shared::SubjectBallPosition subjectBallPosition;
-		Shared::SubjectAssignPoint subjectAssignPoint;
-		Shared::SubjectResetGame subjectResetGame;
+		public SYSMA::Observer<Shared::SubjectGame> {
+		Shared::SubjectGame subjectGame;
 		SYSMA::Engine& engine;
 		int pointsPlayer, pointsOpponent;
 
@@ -30,8 +25,7 @@ namespace Pong {
 
 		void load() override;
 
-		void update(Shared::SubjectAssignPoint* subject);
-		void update(Shared::SubjectResetGame* subject);
+		void update(Shared::SubjectGame* subject);
 	public:
 		_Game(SYSMA::Engine& engine);
 	};

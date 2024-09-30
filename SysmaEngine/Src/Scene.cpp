@@ -3,7 +3,7 @@
 
 using namespace SYSMA;
 
-Scene::Scene() : removePosObject2D{ -1 }, removePosUI{ -1 }, removePosInput{ -1 }, removeAll{ false } {}
+Scene::Scene() : removePosObject2D{ -1 }, removePosUI{ -1 }, removePosInput{ -1 }, removeAll{ false }, pause{ false } {}
 Scene::~Scene() {
 	removeAll = true;
 

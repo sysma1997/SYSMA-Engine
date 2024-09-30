@@ -9,10 +9,10 @@
 
 #include <2D/Rectangle.h>
 
-#include "../Shared/SubjectResetGame.h"
+#include "../Shared/SubjectGame.h"
 
 namespace Pong::Game {
-	class Player : public SYSMA::E2D::Rectangle, public SYSMA::Input, public SYSMA::Observer<Shared::SubjectResetGame> {
+	class Player : public SYSMA::E2D::Rectangle, public SYSMA::Input, public SYSMA::Observer<Shared::SubjectGame> {
 		SYSMA::Scene& scene;
 
 		void isInputPress(int key, bool press) override;
@@ -20,7 +20,7 @@ namespace Pong::Game {
 
 		void process();
 
-		void update(Shared::SubjectResetGame* subject);
+		void update(Shared::SubjectGame* subject);
 	public:
 		Player(SYSMA::Scene& scene);
 	};

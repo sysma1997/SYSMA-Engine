@@ -152,9 +152,7 @@
     <ClCompile Include="Src\MainMenu.cpp" />
     <ClCompile Include="Src\Game\Opponent.cpp" />
     <ClCompile Include="Src\Game\Player.cpp" />
-    <ClCompile Include="Src\Shared\SubjectAssignPoint.cpp" />
-    <ClCompile Include="Src\Shared\SubjectBallPosition.cpp" />
-    <ClCompile Include="Src\Shared\SubjectResetGame.cpp" />
+    <ClCompile Include="Src\Shared\SubjectGame.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Game\Ball.h" />
@@ -163,9 +161,7 @@
     <ClInclude Include="Src\MainMenu.h" />
     <ClInclude Include="Src\Game\Opponent.h" />
     <ClInclude Include="Src\Game\Player.h" />
-    <ClInclude Include="Src\Shared\SubjectAssignPoint.h" />
-    <ClInclude Include="Src\Shared\SubjectBallPosition.h" />
-    <ClInclude Include="Src\Shared\SubjectResetGame.h" />
+    <ClInclude Include="Src\Shared\SubjectGame.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

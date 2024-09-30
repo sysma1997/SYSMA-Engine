@@ -34,6 +34,9 @@ void Pong::Game::Player::process() {
 	velocity.y = 0.0f;
 }
 
-void Pong::Game::Player::update(Pong::Shared::SubjectResetGame* subject) {
+void Pong::Game::Player::update(Pong::Shared::SubjectGame* subject) {
+	auto method = subject->getMethod();
+	if (method != Pong::Shared::SubjectGame::Method::RESET_GAME) return;
+
 	position = glm::vec2{ 10.0f + (size.x / 2.0f), Engine::GetSizeMiddle().y };
 }

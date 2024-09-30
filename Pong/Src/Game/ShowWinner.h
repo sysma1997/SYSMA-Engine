@@ -8,11 +8,11 @@
 #include <UI/Label.h>
 
 #include "../MainMenu.h"
-#include "../Shared/SubjectResetGame.h"
+#include "../Shared/SubjectGame.h"
 
 namespace Pong::Game {
 	class ShowWinner : public SYSMA::UI::Label, public SYSMA::Input {
-		Shared::SubjectResetGame& subject;
+		Shared::SubjectGame& subject;
 		SYSMA::Engine& engine;
 		SYSMA::Scene& scene;
 		bool isPlayerWin;
@@ -20,6 +20,6 @@ namespace Pong::Game {
 		void isInputJustPress(int key) override;
 	public:
 		ShowWinner(SYSMA::Engine& engine, SYSMA::Scene& scene, bool isPlayerWin, 
-			Shared::SubjectResetGame& subject);
+			Shared::SubjectGame& subject);
 	};
 }
