@@ -146,9 +146,16 @@ void Engine::closeLoop() {
 	glfwSetWindowShouldClose(window, true);
 }
 
-void Engine::loadScene(Scene* scene) {
-	if (this->scene) delete this->scene;
+void Engine::loadScene(std::string name, Scene* scene) {
+	scenes[name] = scene;
+}
+void Engine::selectScene(std::string name) {
+	Scene* scene = scenes[name];
+	if (scene == nullptr) return;
 
 	this->scene = scene;
 	this->scene->load();
+}
+void Engine::removeScene(std::string name) {
+	scenes.erase(name);
 }

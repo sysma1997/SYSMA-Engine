@@ -31,5 +31,5 @@ void Pong::Game::ShowWinner::isInputJustPress(int key) {
 		delete this;
 	}
 	if (key == GLFW_KEY_ESCAPE)
-		engine.loadScene(new MainMenu{ engine });
+		engine.selectScene("mainMenu");
 }

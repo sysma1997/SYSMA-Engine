@@ -25,6 +25,7 @@ namespace SYSMA {
 		float lastFrame;
 		int lastWidth, lastHeight;
 
+		std::map<std::string, Scene*> scenes;
 		Scene* scene;
 	public:
 		static int Width, Height;
@@ -48,6 +49,8 @@ namespace SYSMA {
 		void start();
 		void closeLoop();
 
-		void loadScene(Scene* scene);
+		void loadScene(std::string name, Scene* scene);
+		void selectScene(std::string name);
+		void removeScene(std::string name);
 	};
 }

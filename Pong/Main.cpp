@@ -19,7 +19,9 @@ int main() {
 	shaderUILabel->link(UI::Label::VERT, UI::Label::FRAG);
 	Engine::AddShader("label", shaderUILabel);
 	
-	engine->loadScene(new Pong::_Game{ *engine });
+	engine->loadScene("mainMenu", new Pong::MainMenu{ *engine });
+	engine->loadScene("game", new Pong::_Game{*engine});
+	engine->selectScene("mainMenu");
 	engine->start();
 
 	return 0;
