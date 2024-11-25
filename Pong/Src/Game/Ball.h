@@ -8,6 +8,7 @@
 #include <Engine.h>
 #include <Scene.h>
 #include <Observer.h>
+#include <Audio.h>
 
 #include <2D/Circle.h>
 
@@ -20,6 +21,8 @@ namespace Pong::Game {
 		float seconds;
 		float speed;
 		glm::vec2 direction;
+
+		SYSMA::Audio audio;
 
 		void process() override;
 		void isCollision(SYSMA::Object& object) override;

@@ -5,7 +5,7 @@ using namespace SYSMA;
 Pong::Game::Ball::Ball(Scene& scene, 
 	Pong::Shared::SubjectGame& subject) : E2D::Circle{ Engine::GetShader("default"), 14 }, 
 	subject{ subject }, 
-	unapplyCollision{ false }, seconds{ 0.0f }, speed{ 300.0f } {
+	unapplyCollision{ false }, seconds{ 0.0f }, speed{ 300.0f }, audio{ } {
 	srand(time(NULL));
 	name = "ball";
 	isCheckCollision = true;
@@ -14,6 +14,10 @@ Pong::Game::Ball::Ball(Scene& scene,
 
 	assignDirection();
 	scene.addObject2D(this);
+
+	audio.load("collision", "Assets/Sounds/ballCollision.wav");
+	audio.load("boo", "Assets/Sounds/boo.mp3");
+	audio.load("cellebration", "Assets/Sounds/cellebration.mp3");
 }
 
 void Pong::Game::Ball::process() {
@@ -40,6 +44,8 @@ void Pong::Game::Ball::process() {
 				Pong::Shared::SubjectGame::PLAYER
 		};
 		subject.setAssign(assign);
+
+		audio.play((direction == 1.0f) ? "boo" : "cellebration");
 	}
 
 	subject.setPosition(position);
@@ -50,6 +56,7 @@ void Pong::Game::Ball::isCollision(Object& object) {
 	unapplyCollision = true;
 	direction.x *= -1.0f;
 	speed += 15.0f;
+	audio.play("collision");
 }
 void Pong::Game::Ball::reset(float direction) {
 	assignDirection(direction);

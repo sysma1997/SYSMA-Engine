@@ -148,6 +148,7 @@
     <ClCompile Include="Src\2D\Circle.cpp" />
     <ClCompile Include="Src\2D\Sprite.cpp" />
     <ClCompile Include="Src\2D\Triangle.cpp" />
+    <ClCompile Include="Src\Audio.cpp" />
     <ClCompile Include="Src\Input.cpp" />
     <ClCompile Include="Src\Object.cpp" />
     <ClCompile Include="Src\2D\Rectangle.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="Include\2D\Rectangle.h" />
     <ClInclude Include="Include\2D\Sprite.h" />
     <ClInclude Include="Include\2D\Triangle.h" />
+    <ClInclude Include="Include\Audio.h" />
     <ClInclude Include="Include\Engine.h" />
     <ClInclude Include="Include\File.h" />
     <ClInclude Include="Include\Input.h" />
