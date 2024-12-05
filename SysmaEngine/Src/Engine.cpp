@@ -154,7 +154,14 @@ void Engine::selectScene(std::string name) {
 	if (scene == nullptr) return;
 
 	this->scene = scene;
-	this->scene->load();
+	if (!this->scene->isLoad) {
+		this->scene->load();
+		this->scene->isLoad = true;
+		
+		return;
+	}
+
+	this->scene->reload();
 }
 void Engine::removeScene(std::string name) {
 	scenes.erase(name);

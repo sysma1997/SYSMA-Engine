@@ -23,6 +23,8 @@ namespace SYSMA {
 
 		bool pause;
 	public:
+		bool isLoad;
+
 		Scene();
 		~Scene();
 
@@ -37,5 +39,6 @@ namespace SYSMA {
 		bool isPause();
 
 		virtual void load() = 0;
+		virtual void reload() = 0;
 	};
 }

@@ -19,6 +19,8 @@ namespace Pong {
 		int option;
 
 		void load() override;
+		void reload() override;
+
 		void isInputJustPress(int key) override;
 	public:
 		MainMenu(SYSMA::Engine& engine);

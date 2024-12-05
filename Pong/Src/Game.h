@@ -20,10 +20,15 @@ namespace Pong {
 		SYSMA::Engine& engine;
 		int pointsPlayer, pointsOpponent;
 
+		Pong::Game::Player* player;
+		Pong::Game::Opponent* opponent;
+		Pong::Game::Ball* ball;
+
 		SYSMA::UI::Label* lPPlayer;
 		SYSMA::UI::Label* lPOpponent;
 
 		void load() override;
+		void reload() override;
 
 		void update(Shared::SubjectGame* subject);
 	public:

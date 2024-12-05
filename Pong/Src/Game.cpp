@@ -5,7 +5,10 @@ using namespace SYSMA;
 Pong::_Game::_Game(Engine& engine) : engine{ engine },
 subjectGame{},
 pointsPlayer{ 0 }, pointsOpponent{ 0 }, 
-lPPlayer{new UI::Label{Engine::GetShader("label")}},
+player{ new Pong::Game::Player{ *this } },
+opponent{ new Pong::Game::Opponent{ *this, subjectGame } },
+ball{ new Pong::Game::Ball{ *this, subjectGame } },
+lPPlayer{ new UI::Label{Engine::GetShader("label")} },
 lPOpponent{ new UI::Label{Engine::GetShader("label")} } {}
 
 void Pong::_Game::load() {
@@ -15,10 +18,11 @@ void Pong::_Game::load() {
 
 	addObject2D(rectangle);
 
+
 	subjectGame.attach(this);
-	subjectGame.attach(new Pong::Game::Player{ *this });
-	subjectGame.attach(new Pong::Game::Opponent{ *this, subjectGame });
-	subjectGame.attach(new Pong::Game::Ball{ *this, subjectGame });
+	subjectGame.attach(player);
+	subjectGame.attach(opponent);
+	subjectGame.attach(ball);
 
 	std::string font{ "Assets/Fonts/Robot_Font.otf" };
 	
@@ -36,6 +40,9 @@ void Pong::_Game::load() {
 	lPOpponent->setText("0");
 	lPOpponent->position = posLabels + glm::vec2{ 10.0f, 0.0f };
 	addUI(lPOpponent);
+}
+void Pong::_Game::reload() {
+	subjectGame.reset();
 }
 void Pong::_Game::update(Pong::Shared::SubjectGame* subject) {
 	auto method = subject->getMethod();

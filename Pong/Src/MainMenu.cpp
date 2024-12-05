@@ -31,6 +31,10 @@ void Pong::MainMenu::load() {
 	options.push_back(start);
 	options.push_back(exit);
 }
+void Pong::MainMenu::reload() {
+	option = 0;
+}
+
 void Pong::MainMenu::isInputJustPress(int key) {
 	if (key == GLFW_KEY_UP) {
 		option--;
